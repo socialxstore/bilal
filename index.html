@@ -64,6 +64,12 @@
             font-size: 28px;
             font-weight: 700;
             letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .nav-links {
@@ -317,6 +323,16 @@
             margin-bottom: 10px;
         }
         
+        /* Fix for text visibility in experience section */
+        .timeline-content h3, 
+        .timeline-content h4 {
+            color: var(--cream);
+        }
+        
+        .timeline-content ul li {
+            color: var(--cream);
+        }
+        
         /* Skills Section */
         .skills-grid {
             display: grid;
@@ -402,6 +418,16 @@
             width: 30px;
         }
         
+        .contact-item a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+        
         .contact-form input,
         .contact-form textarea {
             width: 100%;
@@ -423,6 +449,27 @@
         .contact-form textarea {
             height: 150px;
             resize: none;
+        }
+        
+        /* Form Status Message */
+        .form-status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .form-status.success {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            display: block;
+        }
+        
+        .form-status.error {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            display: block;
         }
         
         /* Footer */
@@ -537,7 +584,7 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Bilal</div>
+                <div class="logo" id="logo">Bilal</div>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">Experience</a></li>
@@ -579,15 +626,15 @@
                         </div>
                         <div class="info-item">
                             <i class="fas fa-envelope"></i>
-                            <span>bilal.moist@gmail.com</span>
+                            <a href="mailto:bilal.moist@gmail.com">bilal.moist@gmail.com</a>
                         </div>
                         <div class="info-item">
                             <i class="fas fa-phone"></i>
-                            <span>+91 97567-69357</span>
+                            <a href="https://wa.me/919756769357" target="_blank">+91 97567-69357</a>
                         </div>
                         <div class="info-item">
                             <i class="fab fa-linkedin"></i>
-                            <span>bilal-bilal</span>
+                            <a href="https://linkedin.com/in/bilal-bilal" target="_blank">bilal-bilal</a>
                         </div>
                     </div>
                 </div>
@@ -771,15 +818,15 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>bilal.moist@gmail.com</span>
+                        <a href="mailto:bilal.moist@gmail.com">bilal.moist@gmail.com</a>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>+91 97567-69357</span>
+                        <a href="https://wa.me/919756769357" target="_blank">+91 97567-69357</a>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
-                        <span>LinkedIn: bilal-bilal</span>
+                        <a href="https://linkedin.com/in/bilal-bilal" target="_blank">LinkedIn: bilal-bilal</a>
                     </div>
                 </div>
                 <div class="contact-form">
@@ -790,6 +837,7 @@
                         <textarea placeholder="Your Message" required></textarea>
                         <button type="submit" class="btn">Send Message</button>
                     </form>
+                    <div id="formStatus" class="form-status"></div>
                 </div>
             </div>
         </div>
@@ -799,7 +847,7 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://linkedin.com/in/bilal-bilal" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -849,11 +897,31 @@
                 });
             });
             
+            // Logo click to scroll to top
+            document.getElementById('logo').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
             // Form submission
             document.getElementById('contactForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Thank you for your message. I will get back to you soon!');
+                
+                // In a real implementation, you would send this data to a server
+                // For GitHub Pages, you can use a service like Formspree or EmailJS
+                
+                // Show success message
+                const formStatus = document.getElementById('formStatus');
+                formStatus.textContent = 'Thank you for your message. I will get back to you soon!';
+                formStatus.classList.add('success');
+                
+                // Reset form
                 this.reset();
+                
+                // For demonstration purposes - in production, you would actually send the data
+                console.log('Form would be submitted here');
             });
         });
     </script>
